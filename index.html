@@ -534,20 +534,41 @@
             setTimeout(() => {
                 document.querySelector('.preloader').style.display = 'none';
                 checkCookie();
+                applyReferral(); // Применить реферальный код после загрузки
             }, 2000);
         });
-
+    
         // Управление модальным окном
         function checkCookie() {
             if (!document.cookie.includes('modalShown')) {
                 document.getElementById('modal').style.display = 'flex';
             }
         }
-
+    
         function closeModal() {
             document.getElementById('modal').style.display = 'none';
             document.cookie = "modalShown=true; max-age=86400";
         }
+    
+        // Функция получения реферального кода из URL
+        function getReferralCode() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('r');
+        }
+    
+        // Подстановка реферального кода во все ссылки на extratm_bot
+        function applyReferral() {
+            const referralCode = getReferralCode();
+            if (!referralCode) return;
+    
+            // Меняем все ссылки на extratm_bot
+            const botLinks = document.querySelectorAll('a[href*="t.me/extratm_bot"]');
+            botLinks.forEach(link => {
+                const baseURL = "https://t.me/extratm_bot";
+                link.href = `${baseURL}?start=${referralCode}`;
+            });
+        }
     </script>
+    
 </body>
 </html>
