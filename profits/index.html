@@ -40,3 +40,20 @@
             div.className = 'profit-entry';
             div.innerHTML = `
                 <p><strong>Сумма профита:</strong> ${
+                <p><strong>Сумма профита:</strong> ${profit.profit}</p>
+                <p><strong>Имя воркера:</strong> ${profit.worker_name}</p>
+                <p><strong>Куратор:</strong> ${profit.curator}</p>
+                <p><strong>Типешер:</strong> ${profit.type_of_tether}</p>
+                <p><strong>Направление:</strong> ${profit.direction}</p>
+            `;
+            profitsList.appendChild(div);
+        });
+    }
+
+    // Загружаем данные при загрузке страницы
+    loadProfits();
+</script>
+
+</body>
+</html>
+
