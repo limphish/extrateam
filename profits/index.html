@@ -3,67 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ExtraTeam Profits</title>
+    <title>Профиты</title>
     <style>
-        :root {
-            --neon: #7f5af0;
-            --accent: #2cb67d;
-            --dark: #16161a;
-            --dark2: #242629;
-            --text: #fffffe;
-            --secondary: #94a1b2;
-        }
-
-        * {
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            background-color: #f4f4f4;
         }
-
-        body {
-            background: var(--dark);
-            color: var(--text);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
             text-align: center;
         }
-
-        h1 {
-            font-size: 3rem;
-            color: var(--neon);
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--neon), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 10px rgba(127, 90, 240, 0.5);
+        .profit-entry {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
         }
-
-        p {
-            font-size: 1.5rem;
-            color: var(--secondary);
-        }
-
-        .content {
-            position: relative;
-            padding: 3rem;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 0 30px rgba(127, 90, 240, 0.2);
-            backdrop-filter: blur(5px);
-            max-width: 600px;
-            width: 100%;
-        }
-
     </style>
 </head>
 <body>
-    <div class="content">
-        <h1>ExtraTeam Profits</h1>
-        <p>В разработке</p>
-    </div>
+
+<div class="container">
+    <h1>Список профитов</h1>
+    <div id="profits-list"></div>
+</div>
+
+<script>
+    // Функция для получения данных и их отображения
+    async function loadProfits() {
+        const response = await fetch('http://yourwebsite.com/api/profits');
+        const profits = await response.json();
+
+        const profitsList = document.getElementById('profits-list');
+        profitsList.innerHTML = '';  // Очистить список перед добавлением новых данных
+
+        profits.forEach(profit => {
+            const div = document.createElement('div');
+            div.className = 'profit-entry';
+            div.innerHTML = `
+                <p><strong>Сумма профита:</strong> ${profit.profit}</p>
+                <p><strong>Имя воркера:</strong> ${profit.worker_name}</p>
+                <p><strong>Куратор:</strong> ${profit.curator}</p>
+                <p><strong>Типешер:</strong> ${profit.type_of_tether}</p>
+                <p><strong>Направление:</strong> ${profit.direction}</p>
+            `;
+            profitsList.appendChild(div);
+        });
+    }
+
+    loadProfits();
+</script>
+
 </body>
 </html>
