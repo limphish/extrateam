@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Хакерский Поиск</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: lime;
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+        }
+
+        .rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .search-container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        input {
+            padding: 10px;
+            font-size: 20px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: lime;
+            color: black;
+        }
+
+        button:hover {
+            background-color: darkgreen;
+        }
+
+        .digit {
+            position: absolute;
+            color: lime;
+            font-size: 20px;
+            white-space: nowrap;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100%);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="rain"></div>
+    <div class="search-container">
+        <h1>Хакерский Поиск</h1>
+        <input type="text" id="search-input" placeholder="Введите текст для поиска...">
+        <button id="search-button">Поиск</button>
+    </div>
+
+    <script>
+        document.getElementById('search-button').addEventListener('click', function() {
+            const query = document.getElementById('search-input').value;
+            if (query) {
+                window.open(https://yandex.ru/search/?text=${encodeURIComponent(query)}, '_blank');
+            }
+        });
+
+        // Создание дождя из цифр
+        const rain = document.querySelector('.rain');
+
+        function createRain() {
+            const columns = Math.floor(window.innerWidth / 20);
+            
+            for (let i = 0; i < columns; i++) {
+                const digit = document.createElement('div');
+                digit.className = 'digit';
+                digit.style.left = ${i * 20}px;
+                digit.style.animationDelay = ${Math.random() * 5}s;
+                rain.appendChild(digit);
+                
+                // Генерация случайных чисел
+                setInterval(() => {
+                    digit.textContent = Math.floor(Math.random() * 10);
+                }, 100);
+                
+                // Анимация падения
+                digit.style.animation = fall ${Math.random() * 3 + 2}s linear infinite;
+            }
+        }
+
+        createRain();
+    </script>
+</body>
+</html>
